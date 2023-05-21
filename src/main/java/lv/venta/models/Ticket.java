@@ -1,8 +1,5 @@
 package lv.venta.models;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,55 +12,53 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-@Table(name = "trip_table")
+@Table(name = "ticket_table")
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Trip {
+public class Ticket {
 	
 	@Setter(value = AccessLevel.NONE)
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
-	private int trip_id;
+	private int ticket_id;
 	
-	
+	@Column(name = "purchaseDateTime")
 	@NotNull
-	private Collection<City> cities = new ArrayList<>();
+	private String purchaseDateTime;
 	
-	@Column(name = "driver")
+	@Column(name = "trip")
 	@NotNull
-	private Driver driver;
+	private Trip trip;
 	
-	@Column(name = "startDate")
+	@Column(name = "price")
 	@NotNull
-	private String startDate;
+	private float price;
 	
-	@Column(name = "duration")
+	@Column(name = "isChild")
 	@NotNull
-	private int duration;
+	private boolean isChild;
 	
+	@Column(name = "cashier")
+	@NotNull
+	private Cashier cashier;
 
-	public Trip(@NotNull 
-			Driver driver, 
-			String startDate,
-			int duration) {
+	public Ticket(
+			String purchaseDateTime, 
+			Trip trip,  
+			float price, 
+			boolean isChild,
+			Cashier cashier) {
 		
-		this.driver = driver;
-		this.startDate = startDate;
-		this.duration = duration;
+		this.purchaseDateTime = purchaseDateTime;
+		this.trip = trip;
+		this.price = price;
+		this.isChild = isChild;
+		this.cashier = cashier;
 	}
 	
-	
-	public void addCity(City city) {
-		
-		if (!cities.contains(city)) {
-			cities.add(city);
-		}
-		
-	}
 	
 	
 	

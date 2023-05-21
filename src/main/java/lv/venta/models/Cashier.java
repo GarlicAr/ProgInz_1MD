@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Cashier extends Person{
 	
-	
+	@Setter(value = AccessLevel.NONE)
 	@Column(name = "id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
