@@ -31,11 +31,14 @@ public class Driver extends Person{
 
 	public Driver(@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String name,
 			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String surname,
-			@NotNull int driver_id, @NotNull Categories category) {
+			@NotNull Categories category) {
 		super(name, surname);
-		this.driver_id = driver_id;
 		this.category = category;
 	}
+	
+	
+
+	
 	
 	
 	
