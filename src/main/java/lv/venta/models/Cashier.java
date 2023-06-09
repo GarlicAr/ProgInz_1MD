@@ -1,5 +1,9 @@
 package lv.venta.models;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -17,15 +21,28 @@ import lombok.Setter;
 public class Cashier extends Person{
 	
 	@Setter(value = AccessLevel.NONE)
-	@Column(name = "id")
+	@Column(name = "cashier_id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@NotNull
 	private int cashier_id;
+	
+	@OneToMany(mappedBy = "cashier")
+	private Collection<Ticket> tickets = new ArrayList<>();
 
-	public Cashier(@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String name,
-			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String surname) {
+	public Cashier( 
+			String name,
+			String surname) {
+		
 		super(name, surname);
+	}
+
+	public void addTicket(Ticket input) {
+		
+		if(!tickets.contains(input)) {
+			tickets.add(input);
+		}
+		
 	}
 	
 	

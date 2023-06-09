@@ -1,5 +1,8 @@
 package lv.venta.models;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -8,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lv.venta.models.enums.Categories;
 
 
@@ -20,14 +24,17 @@ public class Driver extends Person{
 	
 	@Setter(value = AccessLevel.NONE)
 	@Id
-	@Column(name = "id")
+	@Column(name = "driver_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@NotNull
 	private int driver_id;
 	
 	@Column(name = "category")
 	@NotNull
 	private Categories category;
+	
+	
+	@OneToMany(mappedBy = "driver")
+	private Collection<Trip> trips;
 	
 	
 
@@ -38,6 +45,13 @@ public class Driver extends Person{
 		this.category = category;
 	}
 	
+	
+	public void addTrip(Trip input) {
+		
+		if(!trips.contains(input)) {
+			trips.add(input);
+		}
+	}
 	
 
 	

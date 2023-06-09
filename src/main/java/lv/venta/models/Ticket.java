@@ -1,10 +1,16 @@
 package lv.venta.models;
 
+import java.util.Collection;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -20,7 +26,7 @@ import lombok.Setter;
 public class Ticket {
 	
 	@Setter(value = AccessLevel.NONE)
-	@Column(name = "id")
+	@Column(name = "ticket_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	private int ticket_id;
@@ -41,8 +47,10 @@ public class Ticket {
 	@NotNull
 	private boolean isChild;
 	
-	@Column(name = "cashier")
+	
 	@NotNull
+	@ManyToOne
+	@JoinColumn(name="cashier_id")
 	private Cashier cashier;
 
 	public Ticket(

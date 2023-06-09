@@ -1,5 +1,9 @@
 package lv.venta.repos;
 
-public interface ICashierRepo {
+import org.springframework.data.repository.CrudRepository;
+
+import lv.venta.models.Cashier;
+
+public interface ICashierRepo extends CrudRepository<Cashier, Integer>{
 
 }

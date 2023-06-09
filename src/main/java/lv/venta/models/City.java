@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -22,7 +24,7 @@ public class City {
 	
 	@Setter(value = AccessLevel.NONE)
 	@Id
-	@Column(name = "id")
+	@Column(name = "city_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int city_id;
 	
@@ -33,6 +35,10 @@ public class City {
 	@Column(name = "addressOfStation")
 	@NotNull 
 	private String addressOfStation;
+	
+	@ManyToOne
+	@JoinColumn(name = "trip_id")
+	private Trip trip;
 	
 	
 	
