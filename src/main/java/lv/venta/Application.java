@@ -2,6 +2,7 @@ package lv.venta;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,6 +19,10 @@ import lv.venta.repos.ICityRepo;
 import lv.venta.repos.IDriverRepo;
 import lv.venta.repos.ITicketRepo;
 import lv.venta.repos.ITripRepo;
+import lv.venta.services.IDriverCRUDservice;
+import lv.venta.services.ITicketCRUDservice;
+import lv.venta.services.ITripCRUDservice;
+import lv.venta.services.impl.DriverCRUDservice;
 
 @SpringBootApplication
 public class Application {
@@ -28,8 +33,15 @@ public class Application {
 	}
 
 	@Bean // Calls function when system runs
-	public CommandLineRunner testModel(ICashierRepo cashierRepo, ICityRepo cityRepo, IDriverRepo driverRepo,
-			ITicketRepo ticketRepo, ITripRepo tripRepo) {
+	public CommandLineRunner testModel(
+			ICashierRepo cashierRepo, 
+			ICityRepo cityRepo, 
+			IDriverRepo driverRepo,
+			ITicketRepo ticketRepo, 
+			ITripRepo tripRepo,
+			IDriverCRUDservice driverService,
+			ITicketCRUDservice ticketService,
+			ITripCRUDservice tripService) {
 
 		return new CommandLineRunner() {
 			
