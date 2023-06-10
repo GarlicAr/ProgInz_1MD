@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head >
+    
+    <title>Navigation Bar</title>
+    <style>
+
+        h1{
+            color: white;
+            text-align: center;
+        }
+
+        .input-container {
+            position: relative;
+            display: block;
+        }
+
+        #price {
+            position: absolute;
+            top: 10%;
+            left: calc(100%);
+            visibility: visible;
+        }
+
+        #trip {
+            position: absolute;
+            top: 50px;
+            left: calc(90%);
+            visibility: visible;
+        }
+
+        .input-container:hover .input-field {
+            visibility: visible;
+    }
+
+        .hidden {
+            display: none;
+        }
+        
+       body {
+            margin: 0;
+            padding: 0;
+            background-image: url("images/background_2.jpg");
+        }
+
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            margin: 0;
+        }
+
+        .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: #111;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#">Home</a>
+        <div class="dropdown">
+            <button class="dropbtn">Driver</button>
+            <div class="dropdown-content">
+                <a href="/driver/showAll">Show All</a>
+                <a href="/driver/remove">Remove</a>
+                <a href="/driver/addNew">Add New</a>
+                <a href="/driver/update">Update</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Ticket</button>
+            <div class="dropdown-content">
+                <a href="/ticket/showAll/onlyChild">Show Only Child</a>
+                <div class="input-container">
+                    <a id="showLessLink" href="/ticket/showAll/less/0" onmouseover="showInput('price')" onmouseout="hideInput('price')">Show less than price</a>
+                    <input type="number" name="price" id="price" oninput="updateLink()" class="hidden">
+                    <a id="showTripLink" href="/ticket/showAll/trip/0" onmouseover="showInput('trip')" onmouseout="hideInput('trip')">Show Trips By ID</a>
+                    <input type="number" name="trip" id="trip" oninput="updateLink2()" class="hidden">
+                </div>
+                <div class="input-container">
+                    
+                </div>
+                
+                
+                
+               
+                <a href="/ticket/update">Update</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Trip</button>
+            <div class="dropdown-content">
+                <a href="/trip/showAll">Show All</a>
+                <a href="/trip/remove">Remove</a>
+                <a href="/trip/addNew">Add New</a>
+                <a href="/trip/update">Update</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contents -->
+
+    <h1>1_MD  <br>Arvīds Ivbuls <br>Programēšanas Inženierija</h1>
+
+    
+
+    <script>
+        function updateLink() {
+            var price = document.getElementById("price").value;
+            var link = document.getElementById("showLessLink");
+            link.href = "/ticket/showAll/less/" + price;
+        }
+
+        function updateLink2() {
+            var trip = document.getElementById("trip").value;
+            var link = document.getElementById("showTripLink");
+            link.href = "/ticket/showAll/trip/" + trip;
+        }
+        function showInput2() {
+            var input = document.getElementById("trip");
+            input.classList.remove("hidden");
+        }
+
+        function hideInput2() {
+            var input = document.getElementById("trip");
+            if (!input.matches(':focus')) {
+                input.classList.add("hidden");
+            }
+        }
+
+        function keepInputVisible() {
+            var input = document.getElementById("trip");
+            input.classList.remove("hidden");
+        }
+
+        function showInput() {
+            var input = document.getElementById("price");
+            input.classList.remove("hidden");
+        }
+
+        function hideInput() {
+            var input = document.getElementById("price");
+            if (!input.matches(':focus')) {
+                input.classList.add("hidden");
+            }
+        }
+
+        function keepInputVisible() {
+            var input = document.getElementById("price");
+            input.classList.remove("hidden");
+        }
+    </script>
+</body>
+</html>

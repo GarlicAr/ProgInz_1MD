@@ -35,8 +35,8 @@ public class Ticket {
 	@NotNull
 	private String purchaseDateTime;
 	
-	@Column(name = "trip")
-	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "trip_id")
 	private Trip trip;
 	
 	@Column(name = "price")

@@ -1,11 +1,14 @@
 package lv.venta.models;
 
+import java.util.Collection;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -36,9 +39,8 @@ public class City {
 	@NotNull 
 	private String addressOfStation;
 	
-	@ManyToOne
-	@JoinColumn(name = "trip_id")
-	private Trip trip;
+	@ManyToMany
+	private Collection<Trip> trips;
 	
 	
 	
