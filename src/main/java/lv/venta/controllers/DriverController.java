@@ -1,8 +1,10 @@
 package lv.venta.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +16,7 @@ import lv.venta.models.Driver;
 import lv.venta.services.impl.DriverCRUDservice;
 
 
-@RestController
+@Controller
 @RequestMapping("/driver")
 public class DriverController {
 	
@@ -23,44 +25,80 @@ public class DriverController {
 	
 	
 	@GetMapping("/showAll")
-    public List<Driver> showAllDrivers() {
-        return driverService.showAllDrivers();
+    public String showAllDrivers(org.springframework.ui.Model model) {
+		
+		model.addAttribute("MyDrivers", driverService.showAllDrivers());
+		
+        return "show-all-drivers";
     }
 	
 	@GetMapping("/showAll/{id}")
-    public Driver showDriverById(@PathVariable int id) {
-        return driverService.selectDriverById(id);
+    public String showDriverById(@PathVariable int id, org.springframework.ui.Model model) {
+		
+		
+		model.addAttribute("MyDrivers", driverService.selectDriverById(id));
+		
+        return "show-all-drivers";
     }
 	
 	@GetMapping("/remove/{id}")
-    public void removeDriverById(@PathVariable int id) {
-        driverService.deleteDriverById(id);
+    public String removeDriverById(@PathVariable("id") int id, org.springframework.ui.Model model) {
+		
+			driverService.deleteDriverById(id);
+			model.addAttribute("MyDrivers", driverService.showAllDrivers());
+			return "redirect:/driver/showAll";
+		
+        
     }
 	
 	@GetMapping("/addNew")
-    public void addNewDriver(@RequestBody Driver driver) {
-        driverService.insertNewDriver(driver);
+    public String addNewDriver(Driver driver) {
+		
+        return "insert-new-driver";
+        
     }
 	
 	@PostMapping("/addNew")
-    public void addNewDriver2(@RequestBody Driver driver) {
-        driverService.insertNewDriver(driver);
+    public String addNewDriver2(Driver driver) {
+		
+		Driver temp = new Driver(driver.getName(), driver.getSurname(), driver.getCategory());
+		
+		driverService.drivers.add(temp);
+		
+        return "redirect:/driver/showAll";
     }
 	
 	@GetMapping("/update/{id}")
-    public void updateDriverById(@PathVariable int id, @RequestBody Driver updatedDriver) {
-        Driver temp = new Driver();
+    public String updateDriverById(@PathVariable("id") int id, org.springframework.ui.Model model) {
         
-        temp = updatedDriver;
-        
+
+		try {
+			Driver temp = driverService.selectDriverById(id);
+			model.addAttribute("driver", temp);
+			return "update-driver";
+		}catch (Exception e) {
+			
+			return "error-page";
+			
+		}
         
     }
 	
-	/*TODO
+	
 	@PostMapping("/update/{id}")
-	public void updateDriverById(@PathVariable int id, @RequestBody Driver updatedDriver) {
+	public String updateDriverById2(@PathVariable int id, Driver updatedDriver) {
 		 
-	        }
-	*/
+		for(Driver temp : driverService.drivers) {
+			if(temp.getDriver_id()==id) {
+				temp.setName(updatedDriver.getName());
+				temp.setSurname(updatedDriver.getSurname());
+				temp.setCategory(updatedDriver.getCategory());
+				return "redirect:/driver/showAll";
+			}
+		}
+		return "error-page";
+		
+	}
+	
 	
 }

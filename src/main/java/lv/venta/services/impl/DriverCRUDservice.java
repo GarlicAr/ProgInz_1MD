@@ -3,13 +3,23 @@ package lv.venta.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import lv.venta.models.Driver;
 import lv.venta.services.IDriverCRUDservice;
 
+@Service
 public class DriverCRUDservice implements IDriverCRUDservice{
 
 	
-	List<Driver> drivers = new ArrayList<>();
+	public List<Driver> drivers = new ArrayList<>();
+	
+	
+	public void setDrivers(List<Driver> drivers) {
+	        this.drivers = drivers;
+	  }
+	
 	
 	@Override
 	public Driver selectDriverById(int driverId) {
@@ -28,6 +38,7 @@ public class DriverCRUDservice implements IDriverCRUDservice{
 		for(Driver driver: drivers) {
 			if(driver.getDriver_id() == driverId) {
 				drivers.remove(driver);
+				break;
 			}
 		}
 		
@@ -35,10 +46,20 @@ public class DriverCRUDservice implements IDriverCRUDservice{
 
 	@Override
 	public void insertNewDriver(Driver driver) {
-		
-		drivers.add(driver);
-		
+	    for (Driver temp : drivers) {
+	        if (temp.getName().equals(driver.getName()) && temp.getSurname().equals(driver.getSurname()) && temp.getCategory() == driver.getCategory()) {
+	            return;
+	        }
+	    }
+	    Driver newDriver = new Driver(driver.getName(), driver.getSurname(), driver.getCategory());
+	    drivers.add(newDriver);
 	}
+
+		
+		
+		
+		
+	
 
 	@Override
 	public void updateDriverById(int driverId) {
@@ -56,5 +77,8 @@ public class DriverCRUDservice implements IDriverCRUDservice{
 		
 		return allDrivers;
 	}
+	
+	
+	
 
 }

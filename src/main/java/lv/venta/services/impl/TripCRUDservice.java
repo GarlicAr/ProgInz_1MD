@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import lv.venta.models.Driver;
 import lv.venta.models.Trip;
 import lv.venta.services.IDriverCRUDservice;
 import lv.venta.services.ITripCRUDservice;
 import lv.venta.services.impl.DriverCRUDservice;
 
-
+@Service
 public class TripCRUDservice implements ITripCRUDservice{
 
 	private List<Trip> trips = new ArrayList<>();

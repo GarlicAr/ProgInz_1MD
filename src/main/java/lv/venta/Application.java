@@ -1,6 +1,7 @@
 package lv.venta;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -32,7 +33,7 @@ public class Application {
 
 	}
 
-	@Bean // Calls function when system runs
+	//@Bean // Calls function when system runs
 	public CommandLineRunner testModel(
 			ICashierRepo cashierRepo, 
 			ICityRepo cityRepo, 
@@ -57,7 +58,14 @@ public class Application {
 				driverRepo.save(dr1);
 				driverRepo.save(dr2);
 				driverRepo.save(dr3);
+				
+				
+				List<Driver> drivers = (List<Driver>) driverRepo.findAll();
+				
+				driverService.setDrivers(drivers);
 
+				
+			
 				// Cashiers
 
 				Cashier csh1 = new Cashier("Sergejs", "Bundzinieks");

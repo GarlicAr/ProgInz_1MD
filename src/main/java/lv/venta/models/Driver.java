@@ -22,7 +22,6 @@ import lv.venta.models.enums.Categories;
 @NoArgsConstructor
 public class Driver extends Person{
 	
-	@Setter(value = AccessLevel.NONE)
 	@Id
 	@Column(name = "driver_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)

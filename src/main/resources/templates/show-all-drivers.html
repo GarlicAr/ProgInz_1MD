@@ -6,7 +6,7 @@
     <style>
 
         h1{
-            color: black;
+            color: rgb(0, 0, 0);
             text-align: center;
         }
 
@@ -40,8 +40,7 @@
        body {
             margin: 0;
             padding: 0;
-            background-image: url("/images/background_2.jpg");
-
+            background-image: url("images/background_2.jpg");
         }
 
         .navbar {
@@ -101,6 +100,86 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+        
+        .container {
+        margin: 20px;
+        }   
+
+        .container-search{
+            width: 300px;
+            margin: 20px;
+            background-color: grey;
+        }
+
+        .input-container{
+            padding: 10px;
+        }
+
+.driver-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.driver-table th,
+.driver-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.driver-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.driver-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.driver-cell {
+  white-space: nowrap;
+}
+
+.driver-title {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.driver-surname,
+.driver-category {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.driver-ID {
+  font-size: 14px;
+  color: gray;
+  margin-top: 0;
+}
+
+    .btn-container {
+        display: flex;
+        gap: 8px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        background-color: #f1f1f1;
+        color: #333;
+        border: 1px solid #333;
+        border-radius: 4px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #333;
+        color: #f1f1f1;
+    }
+
+        
     </style>
 </head>
 <body>
@@ -146,11 +225,61 @@
 
     <!-- Contents -->
 
-    <h1>1_MD  <br>Arvīds Ivbuls <br>Programēšanas Inženierija</h1>
+
+    <div class="container">
+  <table class="driver-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Category</th>
+        <th>ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="driver: ${MyDrivers}" class="driver-row">
+        <td th:text="${driver.getName()}" class="driver-cell"></td>
+        <td th:text="${driver.getSurname()}" class="driver-cell"></td>
+        <td th:text="${driver.getCategory()}" class="driver-cell"></td>
+        <td th:text="'ID: ' + ${driver.getDriver_id()}" class="driver-cell"></td>
+        <td>
+            <div class="btn-container">
+                <a th:href=" @{/driver/remove/{id}(id=${driver.driver_id})}" class="btn">Delete</a>
+                <a th:href=" @{/driver/update/{id}(id=${driver.driver_id})}" class="btn">Update</a>
+            </div>
+        </td>
+        
+      </tr>
+    </tbody>
+  </table>
+</div>
+    
+
+<div class="container-search">
+    <div class="input-container">
+        <input type="text" id="searchInput" placeholder="Search by Driver ID">
+        <a id="searchLink" href="#" class="btn btn-primary">Search</a>
+    </div>
+</div>
+
+
+
+    
 
     
 
     <script>
+
+    const inputElement = document.getElementById('searchInput');
+    const searchLink = document.getElementById('searchLink');
+
+    inputElement.addEventListener('input', function() {
+        const inputValue = inputElement.value;
+        const searchUrl = "/driver/showAll/" + inputValue;
+
+        searchLink.href = searchUrl;
+    });
         function updateLink() {
             var price = document.getElementById("price").value;
             var link = document.getElementById("showLessLink");

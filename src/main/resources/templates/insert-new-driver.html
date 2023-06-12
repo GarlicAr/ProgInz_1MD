@@ -40,8 +40,7 @@
        body {
             margin: 0;
             padding: 0;
-            background-image: url("/images/background_2.jpg");
-
+            background-image: url("images/background_2.jpg");
         }
 
         .navbar {
@@ -101,6 +100,65 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-container select {
+        display: block;
+        width: 100%;
+        padding: 5px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+        .form-container button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-container button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .form-container .error-message {
+            color: red;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -146,8 +204,30 @@
 
     <!-- Contents -->
 
-    <h1>1_MD  <br>Arvīds Ivbuls <br>Programēšanas Inženierija</h1>
 
+
+    <div class="form-container">
+        <h2>Insert New Driver</h2>
+
+        <form action="#" th:action="@{/driver/addNew}" th:object="${driver}" method="post">
+            <label for="driver_name">Driver Name:</label>
+            <input type="text" id="driver_name" name="driver_name" th:field="*{name}" required>
+            <span class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+            <label for="driver_surname">Driver Surname:</label>
+            <input type="text" id="driver_surname" name="driver_surname" th:field="*{surname}" required>
+            <span class="error-message" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+
+            <label for="driver_category">Driver Category:</label>
+        	<select id="driver_category" name="driver_category" th:field="*{category}" required>
+            <option th:each="category : ${T(lv.venta.models.enums.Categories).values()}"
+                    th:value="${category}" th:text="${category}"></option>
+        </select>
+        <span class="error-message" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
     
 
     <script>

@@ -3,11 +3,13 @@ package lv.venta.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import lv.venta.models.Ticket;
 import lv.venta.services.ITicketCRUDservice;
 
 
-
+@Service
 public class TicketCRUDservice implements ITicketCRUDservice{
 	
 	
