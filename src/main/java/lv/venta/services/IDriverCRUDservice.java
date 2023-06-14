@@ -16,7 +16,6 @@ public interface IDriverCRUDservice{
     void insertNewDriver(Driver driver);
     
     void updateDriverById(int driverId);
-    
-    public void setDrivers(List<Driver> drivers);
+
 
 }

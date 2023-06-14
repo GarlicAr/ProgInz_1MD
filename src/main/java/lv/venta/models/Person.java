@@ -13,13 +13,13 @@ import lombok.*;
 @NoArgsConstructor
 public class Person {
 	
-	@Column(name = "student_name")
+	@Column(name = "name")
 	@NotNull
 	@Size(min = 3, max = 15)
 	@Pattern(regexp = "[A-Z]{1}[a-z\\ ]+")
 	private String name;
 	
-	@Column(name = "student_surname")
+	@Column(name = "surname")
 	@NotNull
 	@Size(min = 3, max = 15)
 	@Pattern(regexp = "[A-Z]{1}[a-z\\ ]+")

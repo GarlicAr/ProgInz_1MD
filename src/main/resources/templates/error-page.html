@@ -110,19 +110,12 @@
             <div class="dropdown-content">
                 <a href="/driver/showAll">Show All</a>
                 <a href="/driver/addNew">Add New</a>
-                <a href="/driver/update">Update</a>
             </div>
         </div>
         <div class="dropdown">
             <button class="dropbtn">Ticket</button>
             <div class="dropdown-content">
                 <a href="/ticket/showAll/onlyChild">Show Only Child</a>
-                <div class="input-container">
-                    <a id="showLessLink" href="/ticket/showAll/less/0" onmouseover="showInput('price')" onmouseout="hideInput('price')">Show less than price</a>
-                    <input type="number" name="price" id="price" oninput="updateLink()" class="hidden">
-                    <a id="showTripLink" href="/ticket/showAll/trip/0" onmouseover="showInput('trip')" onmouseout="hideInput('trip')">Show Trips By ID</a>
-                    <input type="number" name="trip" id="trip" oninput="updateLink2()" class="hidden">
-                </div>
                 <div class="input-container">
                     
                 </div>
@@ -137,9 +130,7 @@
             <button class="dropbtn">Trip</button>
             <div class="dropdown-content">
                 <a href="/trip/showAll">Show All</a>
-                <a href="/trip/remove">Remove</a>
                 <a href="/trip/addNew">Add New</a>
-                <a href="/trip/update">Update</a>
             </div>
         </div>
     </div>
@@ -151,50 +142,7 @@
     
 
     <script>
-        function updateLink() {
-            var price = document.getElementById("price").value;
-            var link = document.getElementById("showLessLink");
-            link.href = "/ticket/showAll/less/" + price;
-        }
 
-        function updateLink2() {
-            var trip = document.getElementById("trip").value;
-            var link = document.getElementById("showTripLink");
-            link.href = "/ticket/showAll/trip/" + trip;
-        }
-        function showInput2() {
-            var input = document.getElementById("trip");
-            input.classList.remove("hidden");
-        }
-
-        function hideInput2() {
-            var input = document.getElementById("trip");
-            if (!input.matches(':focus')) {
-                input.classList.add("hidden");
-            }
-        }
-
-        function keepInputVisible() {
-            var input = document.getElementById("trip");
-            input.classList.remove("hidden");
-        }
-
-        function showInput() {
-            var input = document.getElementById("price");
-            input.classList.remove("hidden");
-        }
-
-        function hideInput() {
-            var input = document.getElementById("price");
-            if (!input.matches(':focus')) {
-                input.classList.add("hidden");
-            }
-        }
-
-        function keepInputVisible() {
-            var input = document.getElementById("price");
-            input.classList.remove("hidden");
-        }
     </script>
 </body>
 </html>

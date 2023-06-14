@@ -1,30 +1,33 @@
 package lv.venta.services.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lv.venta.models.Driver;
+import lv.venta.repos.IDriverRepo;
 import lv.venta.services.IDriverCRUDservice;
 
 @Service
 public class DriverCRUDservice implements IDriverCRUDservice{
+	
+	private IDriverRepo driverRepo;
+	
+	 	@Autowired
+	    public DriverCRUDservice(IDriverRepo driverRepo) {
+	        this.driverRepo = driverRepo;
+	    }
 
 	
-	public List<Driver> drivers = new ArrayList<>();
-	
-	
-	public void setDrivers(List<Driver> drivers) {
-	        this.drivers = drivers;
-	  }
-	
+
 	
 	@Override
 	public Driver selectDriverById(int driverId) {
 
-		for(Driver driver: drivers) {
+		for(Driver driver: showAllDrivers()) {
 			if(driver.getDriver_id()==driverId) {
 				return driver;
 			}
@@ -35,9 +38,11 @@ public class DriverCRUDservice implements IDriverCRUDservice{
 	@Override
 	public void deleteDriverById(int driverId) {
 		
-		for(Driver driver: drivers) {
+		for(Driver driver: showAllDrivers()) {
 			if(driver.getDriver_id() == driverId) {
-				drivers.remove(driver);
+				
+				driverRepo.delete(driver);
+				
 				break;
 			}
 		}
@@ -46,13 +51,18 @@ public class DriverCRUDservice implements IDriverCRUDservice{
 
 	@Override
 	public void insertNewDriver(Driver driver) {
-	    for (Driver temp : drivers) {
+	    for (Driver temp : showAllDrivers()) {
 	        if (temp.getName().equals(driver.getName()) && temp.getSurname().equals(driver.getSurname()) && temp.getCategory() == driver.getCategory()) {
 	            return;
 	        }
 	    }
-	    Driver newDriver = new Driver(driver.getName(), driver.getSurname(), driver.getCategory());
-	    drivers.add(newDriver);
+	    
+	    driverRepo.save(driver);
+	    
+	    showAllDrivers().add(driver);
+	   
+	    
+
 	}
 
 		
@@ -63,19 +73,18 @@ public class DriverCRUDservice implements IDriverCRUDservice{
 
 	@Override
 	public void updateDriverById(int driverId) {
-		//TODO
-		
+	    for (Driver driver : showAllDrivers()) {
+	        if (driver.getDriver_id() == driverId) {
+	        	
+	            break;
+	        }
+	    }
 	}
+
 
 	@Override
 	public List<Driver> showAllDrivers() {
-		List<Driver> allDrivers = new ArrayList<>();
-		
-		for(Driver driver: drivers) {
-			allDrivers.add(driver);
-		}
-		
-		return allDrivers;
+		return (List<Driver>)driverRepo.findAll();
 	}
 	
 	

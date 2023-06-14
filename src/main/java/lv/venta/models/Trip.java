@@ -38,7 +38,7 @@ public class Trip {
 	@Id
 	private int trip_id;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "Trip_Cities_Table", 
 	joinColumns = @JoinColumn(name = "trip_id"), 
 	inverseJoinColumns = @JoinColumn(name = "city_id"))

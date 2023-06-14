@@ -33,7 +33,7 @@ public class Application {
 
 	}
 
-	//@Bean // Calls function when system runs
+	@Bean // Calls function when system runs
 	public CommandLineRunner testModel(
 			ICashierRepo cashierRepo, 
 			ICityRepo cityRepo, 
@@ -60,10 +60,6 @@ public class Application {
 				driverRepo.save(dr3);
 				
 				
-				List<Driver> drivers = (List<Driver>) driverRepo.findAll();
-				
-				driverService.setDrivers(drivers);
-
 				
 			
 				// Cashiers
@@ -113,9 +109,15 @@ public class Application {
 				Trip tr1 = new Trip(dr1, "24/02/2023", 40, Reiss_Nr1);
 				Trip tr2 = new Trip(dr2, "12/03/2023", 120, Reiss_Nr2);
 				Trip tr3 = new Trip(dr3, "01/02/2023", 210, Reiss_Nr3);
+				Trip tr4 = new Trip(dr1, "12/06/2023", 120, Reiss_Nr2);
 				tripRepo.save(tr1);
 				tripRepo.save(tr2);
 				tripRepo.save(tr3);
+				tripRepo.save(tr4);
+				
+				
+				
+				
 
 				// Tickets
 
@@ -125,6 +127,8 @@ public class Application {
 				ticketRepo.save(tk1);
 				ticketRepo.save(tk2);
 				ticketRepo.save(tk3);
+				
+				
 
 			}
 		};

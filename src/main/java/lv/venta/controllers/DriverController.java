@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,7 +64,7 @@ public class DriverController {
 		
 		Driver temp = new Driver(driver.getName(), driver.getSurname(), driver.getCategory());
 		
-		driverService.drivers.add(temp);
+		driverService.insertNewDriver(temp);
 		
         return "redirect:/driver/showAll";
     }
@@ -87,18 +88,22 @@ public class DriverController {
 	
 	@PostMapping("/update/{id}")
 	public String updateDriverById2(@PathVariable int id, Driver updatedDriver) {
-		 
-		for(Driver temp : driverService.drivers) {
-			if(temp.getDriver_id()==id) {
-				temp.setName(updatedDriver.getName());
-				temp.setSurname(updatedDriver.getSurname());
-				temp.setCategory(updatedDriver.getCategory());
-				return "redirect:/driver/showAll";
-			}
-		}
-		return "error-page";
-		
+	    Driver driver = driverService.selectDriverById(id);
+
+	    if (driver != null) {
+	        driver.setName(updatedDriver.getName());
+	        driver.setSurname(updatedDriver.getSurname());
+	        driver.setCategory(updatedDriver.getCategory());
+
+	        driverService.insertNewDriver(driver); 
+
+	        return "redirect:/driver/showAll";
+	    }
+
+	    return "error-page";
 	}
+
+
 	
 	
 }

@@ -22,7 +22,7 @@
             visibility: visible;
         }
 
-        #trip {
+        #ticket {
             position: absolute;
             top: 50px;
             left: calc(90%);
@@ -111,47 +111,55 @@
             background-color: grey;
         }
 
+        .container-flex {
+        display: flex;
+        padding: 20px;
+        justify-content: flex-start;
+        align-items: center;
+}
+
+
         .input-container{
             padding: 10px;
         }
 
-.driver-table {
+.ticket-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.driver-table th,
-.driver-table td {
+.ticket-table th,
+.ticket-table td {
   padding: 10px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
-.driver-table th {
+.ticket-table th {
   background-color: #f2f2f2;
   font-weight: bold;
 }
 
-.driver-row:nth-child(even) {
+.ticket-row:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.driver-cell {
+.ticket-cell {
   white-space: nowrap;
 }
 
-.driver-title {
+.ticket-title {
   font-size: 24px;
   margin-bottom: 5px;
 }
 
-.driver-surname,
-.driver-category {
+.ticket-surname,
+.ticket-category {
   font-size: 18px;
   margin-bottom: 5px;
 }
 
-.driver-ID {
+.ticket-ID {
   font-size: 14px;
   color: gray;
   margin-top: 0;
@@ -196,21 +204,13 @@
             <button class="dropbtn">Ticket</button>
             <div class="dropdown-content">
                 <a href="/ticket/showAll/onlyChild">Show Only Child</a>
-                <div class="input-container">
-                    
-                </div>
-                
-                
-                
-               
-                <a href="/ticket/update">Update</a>
+        
             </div>
         </div>
         <div class="dropdown">
             <button class="dropbtn">Trip</button>
             <div class="dropdown-content">
                 <a href="/trip/showAll">Show All</a>
-                <a href="/trip/addNew">Add New</a>
             </div>
         </div>
     </div>
@@ -219,44 +219,56 @@
 
 
     <div class="container">
-  <table class="driver-table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Category</th>
-        <th>ID</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:each="driver: ${MyDrivers}" class="driver-row">
-        <td th:text="${driver.getName()}" class="driver-cell"></td>
-        <td th:text="${driver.getSurname()}" class="driver-cell"></td>
-        <td th:text="${driver.getCategory()}" class="driver-cell"></td>
-        <td th:text="'ID: ' + ${driver.getDriver_id()}" class="driver-cell"></td>
-        <td>
-            <div class="btn-container">
-                <a th:href=" @{/driver/remove/{id}(id=${driver.driver_id})}" class="btn">Delete</a>
-                <a th:href=" @{/driver/update/{id}(id=${driver.driver_id})}" class="btn">Update</a>
-            </div>
-        </td>
-        
-      </tr>
-    </tbody>
-  </table>
-</div>
+        <table class="ticket-table">
+          <thead>
+            <tr>
+              <th>Ticket ID</th>
+              <th>Purchase Date</th>
+              <th>Trip ID</th>
+              <th>Price</th>
+              <th>Is Child</th>
+              <th>Cashier ID</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="ticket: ${MyTickets}" class="ticket-row">
+              <td th:text="${ticket.getTicket_id()}" class="ticket-cell"></td>
+              <td th:text="${ticket.getPurchaseDateTime()}" class="ticket-cell"></td>
+              <td th:text="${ticket.getTrip().getTrip_id()}" class="ticket-cell"></td>
+              <td th:text="${ticket.getPrice()}" class="ticket-cell"></td>
+              <td th:text="${ticket.isChild()}" class="ticket-cell"></td>
+              <td th:text="${ticket.getCashier().getCashier_id()}" class="ticket-cell"></td>
+              <td>
+                  <div class="btn-container">
+                      <a th:href="@{/ticket/remove/{id}(id=${ticket.getTicket_id()})}" class="btn">Delete</a>
+                  </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      
     
 
-<div class="container-search">
-    <div class="input-container">
-        <input type="text" id="searchInput" placeholder="Search by Driver ID">
-        <a id="searchLink" href="#" class="btn btn-primary">Search</a>
-    </div>
-</div>
-
-
-
+      <div class="container-flex">
+        <div class="container-search">
+          <div class="input-container">
+            <input type="text" id="searchInput" placeholder="Search by City">
+            <a id="searchLink" href="#" class="btn btn-primary">Search</a>
+          </div>
+        </div>
+      
+        <div class="container-search">
+          <div class="input-container">
+            <input type="text" id="searchInput2" placeholder="Search by Driver ID">
+            <a id="searchLink2" href="#" class="btn btn-primary">Search</a>
+          </div>
+        </div>
+      
+        <a href="/ticket/showAll/today" class="btn btn-primary">Trips Today</a>
+      </div>
     
 
     
@@ -268,10 +280,21 @@
 
     inputElement.addEventListener('input', function() {
         const inputValue = inputElement.value;
-        const searchUrl = "/driver/showAll/" + inputValue;
+        const searchUrl = "/ticket/showAll/city/" + inputValue;
 
         searchLink.href = searchUrl;
     });
+
+    const inputElement2 = document.getElementById('searchInput2');
+    const searchLink2 = document.getElementById('searchLink2');
+
+    inputElement2.addEventListener('input', function() {
+    const inputValue2 = inputElement2.value;
+    const searchUrl2 = "/ticket/showAll/driver/" + inputValue2;
+
+    searchLink2.href = searchUrl2;
+});
+
     
     </script>
 </body>

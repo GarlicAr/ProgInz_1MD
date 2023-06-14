@@ -2,12 +2,15 @@ package lv.venta.services;
 
 import java.util.List;
 
+import lv.venta.models.Driver;
 import lv.venta.models.Ticket;
 
 public interface ITicketCRUDservice {
 
 	
 	List<Ticket> selectAllChildTickets();
+	
+	List<Ticket> getAllTickets();
     
     List<Ticket> selectAllTicketsWherePriceIsLow(float price);
     
@@ -18,4 +21,5 @@ public interface ITicketCRUDservice {
     float calculateIncomeOfCashierByCashierId(int cashierId);
     
     void insertNewTicketByTripId(int tripId, Ticket newTicket);
+    
 }

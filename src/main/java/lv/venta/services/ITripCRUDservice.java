@@ -14,4 +14,6 @@ public interface ITripCRUDservice {
     List<Trip> selectAllTripsToday();
     
     void changeTripDriverByDriverId(int tripId, int driverId);
+    
+
 }
