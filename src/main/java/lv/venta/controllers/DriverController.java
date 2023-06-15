@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import lv.venta.models.Driver;
 import lv.venta.services.impl.DriverCRUDservice;
 
@@ -60,14 +62,18 @@ public class DriverController {
     }
 	
 	@PostMapping("/addNew")
-    public String addNewDriver2(Driver driver) {
-		
-		Driver temp = new Driver(driver.getName(), driver.getSurname(), driver.getCategory());
-		
-		driverService.insertNewDriver(temp);
-		
-        return "redirect:/driver/showAll";
-    }
+	public String addNewDriver2(@Valid Driver driver, BindingResult bindingResult) {
+	    if (bindingResult.hasErrors()) {
+	        
+	        return "insert-new-driver";
+	    }
+
+	    Driver temp = new Driver(driver.getName(), driver.getSurname(), driver.getCategory());
+	    driverService.insertNewDriver(temp);
+
+	    return "redirect:/driver/showAll";
+	}
+
 	
 	@GetMapping("/update/{id}")
     public String updateDriverById(@PathVariable("id") int id, org.springframework.ui.Model model) {
@@ -87,19 +93,19 @@ public class DriverController {
 	
 	
 	@PostMapping("/update/{id}")
-	public String updateDriverById2(@PathVariable int id, Driver updatedDriver) {
-	    Driver driver = driverService.selectDriverById(id);
+	public String updateDriverById2(@PathVariable int id, @Valid Driver updatedDriver, BindingResult bindingResult) {
+	    if (bindingResult.hasErrors()) {
+	        return "update-driver";
+	    }
 
-	    if (driver != null) {
-	        driver.setName(updatedDriver.getName());
-	        driver.setSurname(updatedDriver.getSurname());
-	        driver.setCategory(updatedDriver.getCategory());
-
+	    if (id > 0) {
+	        driverService.updateDriverById(id, updatedDriver);
 	        return "redirect:/driver/showAll";
 	    }
 
 	    return "error-page";
 	}
+
 
 
 	

@@ -238,7 +238,8 @@
               <td th:text="${ticket.getTrip().getTrip_id()}" class="ticket-cell"></td>
               <td th:text="${ticket.getPrice()}" class="ticket-cell"></td>
               <td th:text="${ticket.isChild()}" class="ticket-cell"></td>
-              <td th:text="${ticket.getCashier().getCashier_id()}" class="ticket-cell"></td>
+              <td th:if="${ticket.getCashier() != null}" th:text="${ticket.getCashier().getCashier_id()}" class="ticket-cell"></td>
+        	    <td th:if="${ticket.getCashier() == null}" class="ticket-cell">No Cashier</td>
               <td>
                   <div class="btn-container">
                       <a th:href="@{/ticket/remove/{id}(id=${ticket.getTicket_id()})}" class="btn">Delete</a>

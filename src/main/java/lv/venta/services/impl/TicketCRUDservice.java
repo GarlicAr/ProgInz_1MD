@@ -90,8 +90,11 @@ public class TicketCRUDservice implements ITicketCRUDservice{
 	@Override
 	public void insertNewTicketByTripId(int tripId, Ticket newTicket) {
 		
-
-		//TODO
+		Ticket temp = new Ticket(newTicket.getPurchaseDateTime(), newTicket.getTrip(), newTicket.getPrice(), newTicket.isChild(), newTicket.getCashier());
+		
+		getAllTickets().add(temp);
+		ticketRepo.save(temp);
+		
 		
 	}
 

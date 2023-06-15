@@ -33,7 +33,7 @@ public class Application {
 
 	}
 
-	@Bean // Calls function when system runs
+	//@Bean // Calls function when system runs
 	public CommandLineRunner testModel(
 			ICashierRepo cashierRepo, 
 			ICityRepo cityRepo, 

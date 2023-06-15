@@ -15,20 +15,6 @@
             display: block;
         }
 
-        #price {
-            position: absolute;
-            top: 10%;
-            left: calc(100%);
-            visibility: visible;
-        }
-
-        #trip {
-            position: absolute;
-            top: 50px;
-            left: calc(90%);
-            visibility: visible;
-        }
-
         .input-container:hover .input-field {
             visibility: visible;
     }
@@ -191,27 +177,45 @@
 
 
     <div class="form-container">
-        <h2>Insert New Driver</h2>
+        <h2>Insert New Ticket</h2>
+    
+        <form th:action="/ticket/add/${id}" method="post" th:object="${ticket}">
 
-        <form action="#" th:action="@{/driver/addNew}" th:object="${driver}" method="post">
-            <label for="driver_name">Driver Name:</label>
-            <input type="text" id="driver_name" name="driver_name" th:field="*{name}" required>
-            <span class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-
-            <label for="driver_surname">Driver Surname:</label>
-            <input type="text" id="driver_surname" name="driver_surname" th:field="*{surname}" required>
-            <span class="error-message" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
-
-            <label for="driver_category">Driver Category:</label>
-        	<select id="driver_category" name="driver_category" th:field="*{category}" required>
-            <option th:each="category : ${T(lv.venta.models.enums.Categories).values()}"
-                    th:value="${category}" th:text="${category}"></option>
-        </select>
-        <span class="error-message" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
-
+            <div class="form-group">
+                <label for="purchaseDateTime">Purchase Date and Time</label>
+                <input type="text" class="form-control" id="purchaseDateTime" name="purchaseDateTime" th:field="*{purchaseDateTime}" />
+                <span class="text-danger" th:if="${purchaseDateTimeError}" th:text="${purchaseDateTimeError}"></span>
+            </div>
+    
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="text" class="form-control" id="price" name="price" required th:field="*{price}" />
+                <span class="error-message" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+            </div>
+    
+            <div class="form-group">
+                <label for="isChild">Is Child:</label>
+                <input type="checkbox" id="isChild" name="child" th:field="*{child}" />
+                <span class="error-message" th:if="${#fields.hasErrors('child')}" th:errors="*{child}"></span>
+            </div>
+    
+            <div class="form-group">
+                <label for="cashier">Cashier ID:</label>
+                <input type="number" id="cashier" name="cashierId" required th:field="*{cashier.cashier_id}" />
+                <span class="error-message" th:if="${#fields.hasErrors('cashier.cashier_id')}" th:errors="*{cashier.cashier_id}"></span>
+            </div>
+    
+            <input type="hidden" name="tripId" th:value="${id}" />
+    
             <button type="submit">Submit</button>
         </form>
     </div>
+    
+    
+    
+    
+    
+    
     
 
     <script>

@@ -83,12 +83,19 @@ public class DriverCRUDservice implements IDriverCRUDservice{
 	
 
 	@Override
-	public void updateDriverById(int driverId) {
+	public void updateDriverById(int driverId, Driver inputDriver) {
 	    for (Driver driver : showAllDrivers()) {
 	        if (driver.getDriver_id() == driverId) {
 	        	
-	        	
-	            break;
+	     	    if (driver != null) {
+	     	        driver.setName(inputDriver.getName());
+	     	        driver.setSurname(inputDriver.getSurname());
+	     	        driver.setCategory(inputDriver.getCategory());
+	     	        
+	     	        
+	     	        showAllDrivers().add(driver);
+	     	        driverRepo.save(driver);
+	     	    }
 	        }
 	    }
 	}

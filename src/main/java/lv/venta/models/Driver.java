@@ -39,8 +39,8 @@ public class Driver extends Person{
 	
 	
 
-	public Driver(@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String name,
-			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String surname,
+	public Driver(@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z]+") String name,
+			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z]+") String surname,
 			@NotNull Categories category) {
 		super(name, surname);
 		this.category = category;

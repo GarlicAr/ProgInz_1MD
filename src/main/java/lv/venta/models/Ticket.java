@@ -45,7 +45,11 @@ public class Ticket {
 	
 	@Column(name = "isChild")
 	@NotNull
-	private boolean isChild;
+	private boolean child;
+	
+	public boolean isChild() {
+		return child;
+	}
 	
 	
 	@NotNull
@@ -63,7 +67,7 @@ public class Ticket {
 		this.purchaseDateTime = purchaseDateTime;
 		this.trip = trip;
 		this.price = price;
-		this.isChild = isChild;
+		this.child = isChild;
 		this.cashier = cashier;
 	}
 	

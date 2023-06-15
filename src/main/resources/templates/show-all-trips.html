@@ -203,11 +203,7 @@
         <div class="dropdown">
             <button class="dropbtn">Ticket</button>
             <div class="dropdown-content">
-                <a href="/ticket/showAll/onlyChild">Show Only Child</a>
-                <div class="input-container">
-                    
-                </div>
-        
+                <a href="/ticket/showAll/onlyChild">Show Only Child</a>        
             </div>
         </div>
         <div class="dropdown">
@@ -239,11 +235,12 @@
               <td th:text="${trip.getTrip_id()}" class="trip-cell"></td>
               <td th:text="${trip.getStartDate()}" class="trip-cell"></td>
               <td th:text="${trip.getDuration()}" class="trip-cell"></td>
-              <td th:text="${trip.getDriver.getName()}" class="trip-cell"></td>
-              <td th:text="${trip.getDriver().getDriver_id}" class="trip-cell"></td>
+              <td th:if="${trip.getDriver() != null}" th:text="${trip.getDriver().getName()}" class="trip-cell"></td>
+              <td th:if="${trip.getDriver() == null}" class="trip-cell">No Driver</td>
+              <td th:if="${trip.getDriver() != null}" th:text="${trip.getDriver().getDriver_id()}" class="trip-cell"></td>
               <td>
                   <div class="btn-container">
-                      <a th:href=" @{/trip/remove/{id}(id=${trip.getTrip_id()})}" class="btn">Delete</a>
+                      <a th:href=" @{/ticket/add/{id}(id=${trip.getTrip_id()})}" class="btn">Add Ticket</a>
                   </div>
               </td>
             </tr>
