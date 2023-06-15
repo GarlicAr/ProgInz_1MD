@@ -99,24 +99,28 @@ public class TripCRUDservice implements ITripCRUDservice{
 		
 		Driver temp = new Driver();
 		
+		Trip tempTrip = new Trip();
+		
 		List<Driver> drivers = (List<Driver>) driverRepo.findAll();
 		
 		for(Driver driver: drivers) {
 			if(driver.getDriver_id() == driverId) {
 				temp = driver;
+				break;
 			}
-			
-			new Exception("Nav atrasts vadītājs!");
-			break;
 		}
 		
 		for(Trip trip: allTrips()) {
 			if(trip.getTrip_id() == tripId) {
-				trip.setDriver(temp);
+				tempTrip = trip;
+				break;
 			}
-			new Exception("Nav atrasts ceļojums!");
-			break;
+			
 		}
+		
+		tempTrip.setDriver(temp);
+		
+		tripRepo.save(tempTrip);
 		
 	}
 

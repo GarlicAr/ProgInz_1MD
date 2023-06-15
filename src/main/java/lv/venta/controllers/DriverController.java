@@ -95,8 +95,6 @@ public class DriverController {
 	        driver.setSurname(updatedDriver.getSurname());
 	        driver.setCategory(updatedDriver.getCategory());
 
-	        driverService.insertNewDriver(driver); 
-
 	        return "redirect:/driver/showAll";
 	    }
 

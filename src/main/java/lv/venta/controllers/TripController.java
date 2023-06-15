@@ -63,7 +63,7 @@ public class TripController {
     }
 	
 	@GetMapping("/changeDriver/{tripId}/{driverId}")
-    public String changeTripDriverByDriverId(@PathVariable int tripId, @PathVariable int driverId) {
+    public String changeTripDriverByDriverId(@PathVariable(name = "tripId") int tripId, @PathVariable(name = "driverId") int driverId) {
 		
         tripService.changeTripDriverByDriverId(tripId, driverId);
         

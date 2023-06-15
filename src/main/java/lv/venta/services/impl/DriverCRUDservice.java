@@ -8,13 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lv.venta.models.Driver;
+import lv.venta.models.Trip;
 import lv.venta.repos.IDriverRepo;
+import lv.venta.repos.ITripRepo;
 import lv.venta.services.IDriverCRUDservice;
 
 @Service
 public class DriverCRUDservice implements IDriverCRUDservice{
 	
+	@Autowired
 	private IDriverRepo driverRepo;
+	
+	@Autowired
+	private ITripRepo tripRepo;
 	
 	 	@Autowired
 	    public DriverCRUDservice(IDriverRepo driverRepo) {
@@ -40,6 +46,13 @@ public class DriverCRUDservice implements IDriverCRUDservice{
 		
 		for(Driver driver: showAllDrivers()) {
 			if(driver.getDriver_id() == driverId) {
+				for(Trip trip : tripRepo.findAll()) {
+					if(trip.getDriver().getDriver_id() == driverId) {
+						trip.setDriver(null);
+						tripRepo.save(trip);
+					}
+					
+				}
 				
 				driverRepo.delete(driver);
 				
@@ -57,10 +70,8 @@ public class DriverCRUDservice implements IDriverCRUDservice{
 	        }
 	    }
 	    
-	    driverRepo.save(driver);
-	    
 	    showAllDrivers().add(driver);
-	   
+	    driverRepo.save(driver);
 	    
 
 	}
@@ -75,6 +86,7 @@ public class DriverCRUDservice implements IDriverCRUDservice{
 	public void updateDriverById(int driverId) {
 	    for (Driver driver : showAllDrivers()) {
 	        if (driver.getDriver_id() == driverId) {
+	        	
 	        	
 	            break;
 	        }
